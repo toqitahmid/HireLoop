@@ -3,9 +3,13 @@
 import React, { useState } from "react";
 import { Link, Button } from "@heroui/react";
 import { Menu, X } from "lucide-react";
+import { authClient } from "../lib/auth-client";
 
 export default function AppNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log(user);
 
   const menuItems = [
     { label: "Browse Jobs", href: "#" },
@@ -45,12 +49,21 @@ export default function AppNavbar() {
         {/* Desktop Action Buttons (Sign In / Get Started) */}
         <div className="hidden md:flex items-center gap-4">
           <div className="h-6 w-[1px] bg-zinc-800" /> {/* Divider Element */}
-          <Link
-            href="/login"
-            className="text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors duration-200 px-3"
-          >
-            Log In
-          </Link>
+          {user ? (
+            <button
+              className="text-sm font-semibold text-red-400 hover:text-red-500 transition-colors duration-200"
+              onClick={()=> authClient.signOut()}
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors duration-200 px-3"
+            >
+              Log In
+            </Link>
+          )}
           <Button
             as={Link}
             href="#"
@@ -89,13 +102,21 @@ export default function AppNavbar() {
             </Link>
           ))}
           <div className="flex flex-col gap-4 mt-4">
-            <Link
-              href="#"
-              className="text-center text-zinc-400 hover:text-white font-medium py-3 rounded-xl border border-zinc-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <button
+                className="text-sm w-full flex justify-center font-semibold text-red-400 hover:text-red-500 transition-colors duration-200"
+                onClick={()=> authClient.signOut()}
+              >
+                Log Out
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors duration-200 px-3"
+              >
+                Log In
+              </Link>
+            )}
             <Button
               as={Link}
               href="#"

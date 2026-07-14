@@ -1,13 +1,16 @@
 "use client";
 
-import { Check } from "@gravity-ui/icons";
+import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import {
   Button,
   Description,
   FieldError,
   Form,
   Input,
+  InputGroup,
   Label,
+  Radio,
+  RadioGroup,
   TextField,
 } from "@heroui/react";
 
@@ -16,8 +19,12 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "../lib/auth-client";
+import { useState } from "react";
 
 const RegisterPage = () => {
+   const [isVisible, setIsVisible] = useState(false);
+   const [password, setPassword] = useState("");
+   const [role, setRole] = useState('');
   // 2. CHANGE: Initialize the router
   const router = useRouter();
 
@@ -30,7 +37,8 @@ const RegisterPage = () => {
       name: user.name,
       image: user.image,
       email: user.email,
-      password: user.password,
+      password: password,
+      role: role,
     });
 
     if (data) {
@@ -105,31 +113,61 @@ const RegisterPage = () => {
           <FieldError />
         </TextField>
 
-        <TextField
-          isRequired
-          minLength={8}
-          name="password"
-          type="password"
-          validate={(value) => {
-            if (value.length < 8) {
-              return "Password must be at least 8 characters";
-            }
-            if (!/[A-Z]/.test(value)) {
-              return "Password must contain at least one uppercase letter";
-            }
-            if (!/[0-9]/.test(value)) {
-              return "Password must contain at least one number";
-            }
-            return null;
-          }}
-        >
+        <TextField className="w-full" name="password">
           <Label>Password</Label>
-          <Input placeholder="Enter your password" />
-          <Description>
-            Must be at least 8 characters with 1 uppercase and 1 number
-          </Description>
-          <FieldError />
+          <InputGroup>
+            <InputGroup.Input
+              className="w-full"
+              type={isVisible ? "text" : "password"}
+              // 1. Bind to the password state
+              value={password}
+              // 2. Update the state when the user types
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputGroup.Suffix className="pr-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeSlash className="size-4" />
+                )}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
         </TextField>
+
+        <div className="flex flex-col gap-4">
+          <Label>Select Role</Label>
+          <RadioGroup
+            orientation="horizontal"
+            name="role"
+            value={role}
+            onChange={setRole}
+          >
+            <Radio  value="seeker">
+              <Radio.Content>
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                Seeker
+              </Radio.Content>
+            </Radio>
+            <Radio  value="recruter">
+              <Radio.Content>
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                Recruter
+              </Radio.Content>
+            </Radio>
+          </RadioGroup>
+        </div>
 
         <div className="flex gap-2 justify-center">
           <Button className="w-full" type="submit">
