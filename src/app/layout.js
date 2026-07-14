@@ -27,12 +27,9 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="flex min-h-screen flex-col bg-zinc-950 text-white antialiased">
-        <AppNavbar></AppNavbar>
-        {/* Main content wrapper takes up all remaining vertical space */}
-        <main className="w-full flex-1 mb-20">{children}</main>
+        
+        <main className="w-full flex-1">{children}</main>
 
-        {/* Footer sits perfectly at the bottom */}
-        <Footer />
         <ToastContainer
           position="top-center"
           autoClose={1500}

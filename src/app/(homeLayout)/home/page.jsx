@@ -1,5 +1,5 @@
-import HeroBanner from "../ui/Banner";
-import AppNavbar from "../ui/Navbar";
+import HeroBanner from "../../ui/Banner";
+import AppNavbar from "../../ui/Navbar";
 
 const HomePage = () => {
   return (

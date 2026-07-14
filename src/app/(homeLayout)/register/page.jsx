@@ -9,6 +9,8 @@ import {
   Input,
   InputGroup,
   Label,
+  Radio,
+  RadioGroup,
   TextField,
 } from "@heroui/react";
 
@@ -16,13 +18,13 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 // 1. CHANGE: Import useRouter instead of redirect
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { authClient } from "../lib/auth-client";
+import { authClient } from "../../lib/auth-client";
 import { useState } from "react";
 
-const LogInPage = () => {
-  
-  const [isVisible, setIsVisible] = useState(false);
-  const [password, setPassword] = useState("");
+const RegisterPage = () => {
+   const [isVisible, setIsVisible] = useState(false);
+   const [password, setPassword] = useState("");
+   const [role, setRole] = useState('');
   // 2. CHANGE: Initialize the router
   const router = useRouter();
 
@@ -31,14 +33,16 @@ const LogInPage = () => {
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
-    const { data, error } = await authClient.signIn.email({
+    const { data, error } = await authClient.signUp.email({
+      name: user.name,
+      image: user.image,
       email: user.email,
-      password: user.password,
-      rememberMe: true
+      password: password,
+      role: role,
     });
 
     if (data) {
-      toast.success("You login successfully!", {
+      toast.success("You registered successfully!", {
         position: "top-center",
         autoClose: 2500,
         hideProgressBar: true,
@@ -57,7 +61,7 @@ const LogInPage = () => {
 
       // 4. CHANGE: Toast the exact error message so you can see why it's a 422
       toast.error(
-        error.message || "Failed to login. Please check your inputs.",
+        error.message || "Failed to register. Please check your inputs.",
         {
           position: "top-center",
           theme: "dark",
@@ -69,14 +73,30 @@ const LogInPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-[60vh]">
-      <div className="flex items-center gap-3 my-10">
-        <h1 className="text-2xl font-semibold">Login</h1>
+      {/* Toast container must be present in the tree somewhere if not already in your root layout */}
+      <ToastContainer />
+
+      <div className="flex items-center my-10">
+        <h1 className="text-2xl font-semibold">Register</h1>
       </div>
       <Form
         className="flex w-96 flex-col gap-4"
         render={(props) => <form {...props} data-custom="foo" />}
         onSubmit={onSubmit}
       >
+        <TextField isRequired name="name" type="text">
+          <Label>Name</Label>
+          <Input placeholder="John Doe" />
+          <FieldError />
+        </TextField>
+
+        {/* Note: Make sure to type a valid URL (like https://example.com/avatar.jpg) when testing! */}
+        <TextField isRequired name="image" type="url">
+          <Label>Image Url</Label>
+          <Input placeholder="https://example.com/image.jpg" />
+          <FieldError />
+        </TextField>
+
         <TextField
           isRequired
           name="email"
@@ -85,7 +105,6 @@ const LogInPage = () => {
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
               return "Please enter a valid email address";
             }
-
             return null;
           }}
         >
@@ -123,19 +142,47 @@ const LogInPage = () => {
           </InputGroup>
         </TextField>
 
+        <div className="flex flex-col gap-4">
+          <Label>Select Role</Label>
+          <RadioGroup
+            orientation="horizontal"
+            name="role"
+            value={role}
+            onChange={setRole}
+          >
+            <Radio  value="seeker">
+              <Radio.Content>
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                Seeker
+              </Radio.Content>
+            </Radio>
+            <Radio  value="recruter">
+              <Radio.Content>
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                Recruter
+              </Radio.Content>
+            </Radio>
+          </RadioGroup>
+        </div>
+
         <div className="flex gap-2 justify-center">
           <Button className="w-full" type="submit">
             <Check />
-            Log in
+            Register
           </Button>
           <Button className="w-full" type="reset" variant="secondary">
             Reset
           </Button>
         </div>
+
         <p className="text-center">
-          {`or haven't account`}{" "}
+          or have an account{" "}
           <span className="text-cyan-500 cursor-pointer">
-            <Link href="/register">Register</Link>
+            <Link href="/login">Login</Link>
           </span>
         </p>
       </Form>
@@ -143,4 +190,4 @@ const LogInPage = () => {
   );
 };
 
-export default LogInPage;
+export default RegisterPage;
