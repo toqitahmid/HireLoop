@@ -1,5 +1,4 @@
-import HomePage from "./Home/page";
-import HeroBanner from "./ui/Banner";
+import HomePage from "./home/page";
 
 export default function Home() {
   return (
