@@ -46,10 +46,10 @@ export default function AppNavbar() {
         <div className="hidden md:flex items-center gap-4">
           <div className="h-6 w-[1px] bg-zinc-800" /> {/* Divider Element */}
           <Link
-            href="#"
+            href="/login"
             className="text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors duration-200 px-3"
           >
-            Sign In
+            Log In
           </Link>
           <Button
             as={Link}
