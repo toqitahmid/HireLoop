@@ -1,5 +1,6 @@
 import React from "react";
 import { Drawer, Button, Avatar } from "@heroui/react";
+
 import {
   LayoutGrid,
   Building2,
@@ -133,13 +134,13 @@ export default function Sidebar() {
               <Drawer.Dialog className="h-full flex flex-col pt-4 relative">
                 {/* Close Trigger Button for Mobile Panel */}
                 <Drawer.CloseTrigger>
-                  <Button
-                    isIconOnly
-                    variant="light"
+                  <div
+                    role="button"
+                    aria-label="Close drawer"
                     className="absolute top-4 right-4 text-zinc-500 hover:text-white"
                   >
                     <X className="w-5 h-5" />
-                  </Button>
+                  </div>
                 </Drawer.CloseTrigger>
 
                 {renderHeaderAndUser()}
