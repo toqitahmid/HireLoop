@@ -1,8 +1,9 @@
 import React from "react";
 // Correct Gravity UI Icon imports
 import { FileText, Persons, Thunderbolt, CircleCheck } from "@gravity-ui/icons";
+import StatCard from "./StatCard";
 
-import { StatCard } from "./dashboard/StatCard"; // Updated to match your correct folder path!
+
 
 export const StatGrid = () => {
   const statsData = [

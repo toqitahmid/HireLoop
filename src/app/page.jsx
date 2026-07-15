@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 
 export default function PostJobForm() {
   const [formData, setFormData] = useState({
+    status: true,
     isRemote: false,
     currency: "USD",
   });

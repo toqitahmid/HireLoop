@@ -12,28 +12,33 @@ import { Menu, X } from "lucide-react";
 
 // Nav items set up to match the items in your screenshot
 const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutGrid, active: true },
+  {
+    label: "Dashboard",
+    href: "/recruiterDashboard/recruiterHomeDashboard",
+    icon: LayoutGrid,
+    active: true,
+  },
   {
     label: "My Company",
-    href: "/dashboard/company",
+    href: "/recruiterDashboard/recruiterCompany",
     icon: Building2,
     active: false,
   },
   {
     label: "Manage Jobs",
-    href: "/dashboard/jobs",
+    href: "/recruiterDashboard/recruiterJobs",
     icon: Briefcase,
     active: false,
   },
   {
     label: "Applications",
-    href: "/dashboard/applications",
+    href: "/recruiterDashboard/recruiterJobs",
     icon: FileText,
     active: false,
   },
   {
     label: "Settings",
-    href: "/dashboard/settings",
+    href: "/recruiterDashboard/recruiterSettings",
     icon: Settings,
     active: false,
   },

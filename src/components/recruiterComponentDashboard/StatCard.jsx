@@ -2,7 +2,7 @@ import React from "react";
 // Only import Card from the package root in v3
 import { Card } from "@heroui/react";
 
-export const StatCard = ({ title, value, icon: Icon }) => {
+const StatCard = ({ title, value, icon: Icon }) => {
   return (
     <Card
       // isHoverable is removed in v3. Use Tailwind hover states instead.
@@ -26,3 +26,5 @@ export const StatCard = ({ title, value, icon: Icon }) => {
     </Card>
   );
 };
+
+export default StatCard;
