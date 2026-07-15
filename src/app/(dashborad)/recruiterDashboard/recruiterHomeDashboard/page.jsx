@@ -1,11 +1,16 @@
-import StatGrid from "@/components/recruiterComponentDashboard/StatGrid";
-import React from "react";
+// "use client";
+import { authClient } from "@/app/lib/auth-client";
+import Jobs from "@/components/recruiterDashboardComponent/Jobs";
+import StatGrid from "@/components/recruiterDashboardComponent/StatGrid";
 
 const RecruiterPage = () => {
   return (
-    <div>
-      I am a recruiter
-      <StatGrid></StatGrid>
+    <div className=" my-10 space-y-10">
+      
+      <div>
+        <StatGrid></StatGrid>
+        <Jobs></Jobs>
+      </div>
     </div>
   );
 };

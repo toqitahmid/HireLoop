@@ -1,6 +1,7 @@
-import Navbar from "@/components/recruiterComponentDashboard/Navbar";
-import Sidebar from "@/components/recruiterComponentDashboard/Sidebar";
+import Navbar from "@/components/recruiterDashboardComponent/Navbar";
+import Sidebar from "@/components/recruiterDashboardComponent/Sidebar";
 import React from "react";
+
 
 const DashboardLayout = ({ children }) => {
   return (

@@ -9,12 +9,12 @@ export default function AppNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
 
   const menuItems = [
     { label: "Browse Jobs", href: "#" },
     { label: "Company", href: "#" },
     { label: "Pricing", href: "#" },
+    { label: "Dashboard", href: "/recruiterDashboard/recruiterHomeDashboard" },
   ];
 
   return (
