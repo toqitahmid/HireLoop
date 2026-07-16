@@ -1,7 +1,12 @@
+import { getRecruiterCompany } from "@/app/lib/api/companies";
+import { getUserSession } from "@/app/lib/core/session";
 import Jobs from "@/components/recruiterDashboardComponent/Jobs";
 import PostJobForm from "@/components/recruiterDashboardComponent/PostJobForm";
 
-const page = () => {
+const page = async() => {
+  const recruiter = await getUserSession();
+  const recruiterCompany = await getRecruiterCompany(recruiter.id);
+  console.log('form page = ',recruiterCompany._id)
   return (
     <>
       <div>
@@ -16,7 +21,7 @@ const page = () => {
           </div>
           <Jobs></Jobs>
         </div>
-        <PostJobForm ></PostJobForm>
+        <PostJobForm recruiterCompany={recruiterCompany}></PostJobForm>
       </div>
     </>
   );

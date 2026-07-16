@@ -6,24 +6,26 @@ import { createJob } from "@/app/lib/actions/jobs";
 import { toast, Zoom } from "react-toastify";
 import { redirect } from "next/navigation";
 
-export default function PostJobForm() {
+export default function PostJobForm({ recruiterCompany }) {
+  console.log('from Form = ', recruiterCompany._id)
   const [formData, setFormData] = useState({
     status: true,
     isRemote: false,
     currency: "USD",
+    companyId: recruiterCompany?._id,
   });
 
   // Minimal logic for the active job limits (Growth Plan: 4/10 active)
   const canPost = true;
 
-  const handleInput = (e) =>{
-      setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+  const handleInput = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleOnSubmit = async(e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const res = await createJob(formData);
-    if(res.insertedId){
+    if (res.insertedId) {
       toast.success("Job posted successfully", {
         position: "top-center",
         autoClose: 2500,
@@ -37,7 +39,7 @@ export default function PostJobForm() {
       });
       redirect("/recruiterDashboard/recruiterHomeDashboard");
     }
-  }
+  };
 
   return (
     <div className=" text-white flex items-center justify-center p-4">
@@ -58,6 +60,19 @@ export default function PostJobForm() {
 
         {/* Form Body */}
         <form onSubmit={handleOnSubmit} className="p-6 space-y-6">
+          <div>
+            <label className="text-xs font-medium text-neutral-400 grid-cols-2 mb-1.5">
+              Company Name
+            </label>
+            <input
+              name="companyName"
+              required
+              onChange={handleInput}
+              placeholder="Islami Bank PLC"
+              className="w-full text-sm bg-[#222226] border border-neutral-800 focus:border-neutral-600 rounded-lg p-2.5 outline-none text-neutral-200"
+            />
+          </div>
+
           {/* Job Info Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -112,33 +127,6 @@ export default function PostJobForm() {
                 name="deadline"
                 required
                 onChange={handleInput}
-                className="w-full text-sm bg-[#222226] border border-neutral-800 focus:border-neutral-600 rounded-lg p-2.5 outline-none text-neutral-200"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-neutral-400 block mb-1.5">
-                Company Name
-              </label>
-              <input
-                name="companyName"
-                required
-                onChange={handleInput}
-                placeholder="Islami Bank PLC"
-                className="w-full text-sm bg-[#222226] border border-neutral-800 focus:border-neutral-600 rounded-lg p-2.5 outline-none text-neutral-200"
-              />
-            </div>
-
-
-            <div>
-              <label className="text-xs font-medium text-neutral-400 block mb-1.5">
-                Company ID
-              </label>
-              <input
-                name="companyId"
-                required
-                onChange={handleInput}
-                placeholder="abc_123##"
                 className="w-full text-sm bg-[#222226] border border-neutral-800 focus:border-neutral-600 rounded-lg p-2.5 outline-none text-neutral-200"
               />
             </div>
