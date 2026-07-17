@@ -14,7 +14,7 @@ import {
 
 import { ToastContainer, Zoom, toast } from "react-toastify";
 // 1. CHANGE: Import useRouter instead of redirect
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "../../lib/auth-client";
 import { useState } from "react";
@@ -25,6 +25,9 @@ const LogInPage = () => {
   const [password, setPassword] = useState("");
   // 2. CHANGE: Initialize the router
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +54,7 @@ const LogInPage = () => {
       });
 
       // 3. CHANGE: Use router.push() for client-side redirection
-      router.push("/");
+      router.push(redirectTo);
     } else if (error) {
       console.error("Better-Auth Error Details:", error);
 

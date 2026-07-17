@@ -21,8 +21,9 @@ import {
   Loader2,
   X,
 } from "lucide-react";
-import { createCompany } from "@/app/lib/api/companies";
+
 import { toast, Zoom } from "react-toastify";
+import { createCompany } from "@/app/lib/actions/companies";
 
 const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
