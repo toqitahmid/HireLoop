@@ -5,8 +5,7 @@ import PostJobForm from "@/components/recruiterDashboardComponent/PostJobForm";
 
 const page = async() => {
   const recruiter = await getUserSession();
-  const recruiterCompany = await getRecruiterCompany(recruiter.id);
-  console.log('form page = ',recruiterCompany._id)
+  const recruiterCompany = await getRecruiterCompany(recruiter?.id);
   return (
     <>
       <div>
@@ -21,7 +20,16 @@ const page = async() => {
           </div>
           <Jobs></Jobs>
         </div>
-        <PostJobForm recruiterCompany={recruiterCompany}></PostJobForm>
+        {recruiterCompany && (
+          <PostJobForm recruiterCompany={recruiterCompany}></PostJobForm>
+        )}
+      </div>
+      <div>
+        {!recruiterCompany && (
+          <div className="flex justify-center items-center h-[30vh] font-semibold text-3xl">
+            <h1>At first register your company</h1>
+          </div>
+        )}
       </div>
     </>
   );

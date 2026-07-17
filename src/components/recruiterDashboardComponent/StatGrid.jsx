@@ -17,7 +17,7 @@ import { Avatar } from "@heroui/react";
 export const StatGrid = async () => {
   const recruiter = await getUserSession();
   console.log(recruiter);
-  const recruiterCompany = await getRecruiterCompany(recruiter.id);
+  const recruiterCompany = await getRecruiterCompany(recruiter?.id);
 
   const statsData = [
     {
@@ -55,7 +55,7 @@ export const StatGrid = async () => {
           <div className="w-full grid grid-cols-2 gap-2">
             {statsData.map((stat) => (
               <StatCard
-                key={stat.id}
+                key={stat?.id}
                 title={stat.title}
                 value={stat.value}
                 icon={stat.icon}

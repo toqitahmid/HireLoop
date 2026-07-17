@@ -7,7 +7,7 @@ import { getRecruiterCompany } from "@/app/lib/api/companies";
 
 const Jobs = async () => {
   const recruiter = await getUserSession();
-  const recruiterCompany = await getRecruiterCompany(recruiter.id);
+  const recruiterCompany = await getRecruiterCompany(recruiter?.id);
   const jobs = await getCompanyJobs(recruiterCompany?._id);
 
   return (

@@ -14,7 +14,7 @@ export default function AppNavbar() {
     { label: "Browse Jobs", href: "#" },
     { label: "Company", href: "#" },
     { label: "Pricing", href: "#" },
-    { label: "Dashboard", href: "/recruiterDashboard/recruiterHomeDashboard" },
+    // { label: "Dashboard", href: "/recruiterDashboard/recruiterHomeDashboard" },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function AppNavbar() {
         </div>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-5">
           {menuItems.map((item, index) => (
             <Link
               key={index}
@@ -44,6 +44,15 @@ export default function AppNavbar() {
               {item.label}
             </Link>
           ))}
+          <div className="hidden md:flex items-center">
+            {user && (
+              <Link href="/recruiterDashboard/recruiterHomeDashboard">
+                <h2 className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-200">
+                  Dashboard
+                </h2>
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Desktop Action Buttons (Sign In / Get Started) */}
@@ -52,7 +61,7 @@ export default function AppNavbar() {
           {user ? (
             <button
               className="text-sm font-semibold text-red-400 hover:text-red-500 transition-colors duration-200"
-              onClick={()=> authClient.signOut()}
+              onClick={() => authClient.signOut()}
             >
               Log Out
             </button>
@@ -105,7 +114,7 @@ export default function AppNavbar() {
             {user ? (
               <button
                 className="text-sm w-full flex justify-center font-semibold text-red-400 hover:text-red-500 transition-colors duration-200"
-                onClick={()=> authClient.signOut()}
+                onClick={() => authClient.signOut()}
               >
                 Log Out
               </button>

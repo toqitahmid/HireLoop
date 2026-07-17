@@ -18,8 +18,6 @@ import {
   MapPin,
   Upload,
   Globe,
-  ArrowRight,
-  CheckCircle2,
   Loader2,
   X,
 } from "lucide-react";
@@ -28,7 +26,7 @@ import { toast, Zoom } from "react-toastify";
 
 const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
-export default function CompanyRegistration({recruiter,recruiterCompany}) {
+export default function CompanyRegistration({recruiter}) {
   const state = useOverlayState();
   const [isRegistered, setIsRegistered] = useState(false);
   const [registeredData, setRegisteredData] = useState(null);
@@ -162,7 +160,6 @@ export default function CompanyRegistration({recruiter,recruiterCompany}) {
 
   // 1. Success view shown AFTER successful registration
   // 2. Default state view ("Company not registered yet")
-  if(!recruiterCompany){
     return (
       <div className="min-h-screen bg-[#0f0f10] text-white flex flex-col items-center justify-center relative px-4 selection:bg-zinc-700">
         {/* Graphic / Placeholder Art */}
@@ -514,5 +511,4 @@ export default function CompanyRegistration({recruiter,recruiterCompany}) {
         </Modal>
       </div>
     );
-  }
 }
