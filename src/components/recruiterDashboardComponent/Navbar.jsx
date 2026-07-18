@@ -3,6 +3,8 @@
 import { InputGroup, Badge, Avatar } from "@heroui/react";
 import { Magnifier, Bell } from "@gravity-ui/icons";
 import { authClient } from "@/app/lib/auth-client";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
@@ -26,11 +28,11 @@ export default function Navbar() {
       {/* 2. RIGHT: Actions & User Info */}
       <div className="flex items-center gap-3 md:gap-6 flex-shrink-0">
         {/* Notification Bell (Using v3 Badge.Anchor compound layout) */}
-        <button className="text-zinc-400 hover:text-white transition-colors relative p-1 mt-1">
-          <Badge.Anchor>
-            <Bell className="w-5 h-5" />
-          </Badge.Anchor>
-        </button>
+        <Link href='/' className="text-zinc-400 hover:text-white transition-colors relative p-1 mt-1">
+          <button>
+            <Home className="w-5 h-5" />
+          </button>
+        </Link>
 
         {/* Vertical Divider Line */}
         <div className="h-6 w-[1px] bg-zinc-800" />
