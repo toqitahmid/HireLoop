@@ -138,7 +138,7 @@ const LogInPage = () => {
         <p className="text-center">
           {`or haven't account`}{" "}
           <span className="text-cyan-500 cursor-pointer">
-            <Link href="/register">Register</Link>
+            <Link href={`/register?redirect=${redirectTo}`}>Register</Link>
           </span>
         </p>
       </Form>
