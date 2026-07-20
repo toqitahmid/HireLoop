@@ -5,9 +5,7 @@ import React, { useState } from "react";
 import { Tabs, Card, Button, Chip, Accordion } from "@heroui/react";
 import { Check, Users, Briefcase, ArrowRight } from "lucide-react";
 
-// ---------------------------------------------------------------------------
-// Content
-// ---------------------------------------------------------------------------
+
 
 const SIDES = {
   seekers: {
@@ -143,11 +141,24 @@ const FAQS = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Plan card
-// ---------------------------------------------------------------------------
 
-function PlanCard({ plan, theme }) {
+function PlanCard({ plan}) {
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch("/api/checkout_sessions", {
+        method: "POST",
+      });
+
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else {
+        const data = await response.json();
+        if (data.url) window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+    }
+  };
   return (
     <Card
       className={[
@@ -210,7 +221,24 @@ function PlanCard({ plan, theme }) {
       </Card.Content>
 
       <Card.Footer className="px-6 pb-8 pt-0">
-        <Button
+        <form action="/api/checkout_sessions" method="POST">
+          <section>
+            <Button
+            onClick={handleCheckout}
+              type="submit"
+              className={[
+                "w-[80vw] sm:w-[20vw] lg:w-[13vw] flex justify-center rounded-xl font-semibold",
+                plan.featured
+                  ? "bg-[var(--accent)] text-[#12151C] hover:brightness-95"
+                  : "bg-white/5 text-white hover:bg-white/10 border border-white/10",
+              ].join(" ")}
+            >
+              {plan.cta}
+              <ArrowRight className="ml-1.5 size-4" />
+            </Button>
+          </section>
+        </form>
+        {/* <Button
           className={[
             "w-full justify-center rounded-xl font-semibold",
             plan.featured
@@ -220,7 +248,7 @@ function PlanCard({ plan, theme }) {
         >
           {plan.cta}
           <ArrowRight className="ml-1.5 size-4" />
-        </Button>
+        </Button> */}
       </Card.Footer>
     </Card>
   );
