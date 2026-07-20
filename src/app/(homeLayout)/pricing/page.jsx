@@ -17,6 +17,7 @@ const SIDES = {
     plans: [
       {
         name: "Free",
+        id: "seeker_free",
         price: "0",
         cadence: "forever",
         tagline: "Get your search off the ground.",
@@ -31,6 +32,7 @@ const SIDES = {
       },
       {
         name: "Pro",
+        id: "seeker_pro",
         price: "19",
         cadence: "/month",
         tagline: "For an active, focused search.",
@@ -45,6 +47,7 @@ const SIDES = {
       },
       {
         name: "Premium",
+        id: "seeker_premium",
         price: "39",
         cadence: "/month",
         tagline: "Everything, with no ceiling.",
@@ -69,6 +72,7 @@ const SIDES = {
     plans: [
       {
         name: "Free",
+        id: "recruiter_free",
         price: "0",
         cadence: "forever",
         tagline: "Great for a company's first year of hiring.",
@@ -82,6 +86,7 @@ const SIDES = {
       },
       {
         name: "Growth",
+        id: "recruiter_growth",
         price: "49",
         cadence: "/month",
         tagline: "For teams hiring on a regular cadence.",
@@ -96,6 +101,7 @@ const SIDES = {
       },
       {
         name: "Enterprise",
+        id: "recruiter_enterprise",
         price: "149",
         cadence: "/month",
         tagline: "For high-volume, brand-forward hiring.",
@@ -147,14 +153,11 @@ function PlanCard({ plan}) {
     try {
       const response = await fetch("/api/checkout_sessions", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId: plan.id }),
       });
-
-      if (response.redirected) {
-        window.location.href = response.url;
-      } else {
-        const data = await response.json();
-        if (data.url) window.location.href = data.url;
-      }
+      const data = await response.json();
+      if (data.url) window.location.href = data.url;
     } catch (err) {
       console.error("Checkout error:", err);
     }
@@ -221,11 +224,9 @@ function PlanCard({ plan}) {
       </Card.Content>
 
       <Card.Footer className="px-6 pb-8 pt-0">
-        <form action="/api/checkout_sessions" method="POST">
-          <section>
             <Button
             onClick={handleCheckout}
-              type="submit"
+              type="button"
               className={[
                 "w-[80vw] sm:w-[20vw] lg:w-[13vw] flex justify-center rounded-xl font-semibold",
                 plan.featured
@@ -236,8 +237,6 @@ function PlanCard({ plan}) {
               {plan.cta}
               <ArrowRight className="ml-1.5 size-4" />
             </Button>
-          </section>
-        </form>
         {/* <Button
           className={[
             "w-full justify-center rounded-xl font-semibold",
@@ -283,8 +282,8 @@ export default function PricingPage() {
             One board. Two sides of the desk.
           </h1>
           <p className="mt-4 text-white/55">
-            Whether you're chasing your next role or trying to fill one, pick
-            the side that's yours — pricing adjusts to match.
+            Whether youre chasing your next role or trying to fill one, pick
+            the side thats yours — pricing adjusts to match.
           </p>
         </div>
 

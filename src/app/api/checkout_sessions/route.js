@@ -1,26 +1,36 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-import { stripe } from "../../lib/stripe";
+import { PLAN_PRICE_ID, stripe } from "../../lib/stripe";
 
-export async function POST() {
+export async function POST(req) {
   try {
     const headersList = await headers();
     const origin = headersList.get("origin");
 
-    // Create Checkout Sessions from body params.
+    const { planId } = await req.json();
+    const priceId = PLAN_PRICE_ID[planId];
+
+    if (!priceId) {
+      return NextResponse.json(
+        { error: `No price configured for plan "${planId}"` },
+        { status: 400 },
+      );
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-          price: "price_1Tv9YB2N1XPXC4X3R0N6riH7",
+          price: priceId,
           quantity: 1,
         },
       ],
       mode: "subscription",
       success_url: `${origin}/plans/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/plans`,
     });
-    return NextResponse.redirect(session.url, 303);
+
+    return NextResponse.json({ url: session.url });
   } catch (err) {
     return NextResponse.json(
       { error: err.message },
