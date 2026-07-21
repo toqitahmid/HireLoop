@@ -34,13 +34,15 @@ const RegisterPage = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-
+    
+    const plan = role === 'seeker'?'seeker_free' : 'recruiter_free'
     const { data, error } = await authClient.signUp.email({
       name: user.name,
       image: user.image,
       email: user.email,
       password: password,
       role: role,
+      plan,
     });
 
     if (data) {
