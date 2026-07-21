@@ -3,7 +3,7 @@ import Sidebar from "@/components/recruiterDashboardComponent/Sidebar";
 import React from "react";
 
 
-const DashboardLayout = ({ children }) => {
+const RecruiterDashboardLayout = ({ children }) => {
   return (
     // Outer wrapper replacing the body tag
     <div className="flex min-h-screen bg-[#111112] text-white antialiased">
@@ -24,4 +24,4 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default RecruiterDashboardLayout;
