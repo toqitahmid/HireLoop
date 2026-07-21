@@ -20,15 +20,19 @@ export default function AppNavbar() {
   ];
 
   // If user is authenticated, append the Dashboard link to the navbar group cleanly
-  const menuItems = user
-    ? [
-        ...baseMenuItems,
-        {
-          label: "Dashboard",
-          href: "/recruiterDashboard/recruiterHomeDashboard",
-        },
-      ]
-    : baseMenuItems;
+const dashboardHref =
+  user?.role === "recruter"
+    ? "/recruiterDashboard/recruiterHomeDashboard"
+    : user?.role === "seeker"
+      ? "/seekerDashboard/seekerHomeDashboard"
+      : null;
+
+const menuItems = user
+  ? [
+      ...baseMenuItems,
+      ...(dashboardHref ? [{ label: "Dashboard", href: dashboardHref }] : []),
+    ]
+  : baseMenuItems;
 
   return (
     <div className="w-full px-4 pt-4 pb-20 relative z-50">

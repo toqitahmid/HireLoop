@@ -19,27 +19,32 @@ import { authClient } from "@/app/lib/auth-client";
 const navItems = [
   {
     label: "Dashboard",
-    href: "/recruiterDashboard/recruiterHomeDashboard",
+    href: "/seekerDashboard/seekerHomeDashboard",
     icon: LayoutGrid,
   },
   {
-    label: "My Company",
-    href: "/recruiterDashboard/recruiterCompany",
+    label: "Jobs",
+    href: "/seekerDashboard/seekerjobs",
     icon: Building2,
   },
   {
-    label: "Manage Jobs",
-    href: "/recruiterDashboard/recruiterJobs",
+    label: "Saved Jobs",
+    href: "/recruiterDashboard/savedJobs",
     icon: Briefcase,
   },
   {
     label: "Applications",
-    href: "/recruiterDashboard/recruiterApplications", // Updated so it's unique from Manage Jobs!
+    href: "/seekerDashboard/seekerApplications", // Updated so it's unique from Manage Jobs!
     icon: FileText,
   },
   {
+    label: "Billings",
+    href: "/seekerDashboard/seekerBillings",
+    icon: Settings,
+  },
+  {
     label: "Settings",
-    href: "/recruiterDashboard/recruiterSettings",
+    href: "/seekerDashboard/seekerSettings",
     icon: Settings,
   },
 ];
@@ -96,20 +101,20 @@ export default function Sidebar() {
   // Render function for the branding and User profile card
   const renderHeaderAndUser = () => (
     <div className="px-6 pt-6 pb-4 w-full">
-      {/* Brand / Logo Section */}
-      <Link
-        href="/"
-        className="flex items-center gap-1 text-2xl font-black tracking-tight text-blue-500 hover:opacity-90 transition-opacity mb-5"
-      >
-        hire<span className="text-orange-500">l</span>
-        <div className="w-3.5 h-3.5 rounded-full border-2 border-orange-500 flex items-center justify-center -mx-0.5">
-          <div className="w-1 h-1 rounded-full bg-blue-400" />
-        </div>
-        <div className="w-3.5 h-3.5 rounded-full border-2 border-blue-500 flex items-center justify-center">
-          <div className="w-1 h-1 rounded-full bg-orange-400" />
-        </div>
-        <span className="text-orange-500 -ml-0.5">p</span>
-      </Link>
+       {/* Brand / Logo Section */}
+              <Link
+                href="/"
+                className="flex items-center gap-1 text-2xl font-black tracking-tight text-blue-500 hover:opacity-90 transition-opacity mb-5"
+              >
+                hire<span className="text-orange-500">l</span>
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-orange-500 flex items-center justify-center -mx-0.5">
+                  <div className="w-1 h-1 rounded-full bg-blue-400" />
+                </div>
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-blue-500 flex items-center justify-center">
+                  <div className="w-1 h-1 rounded-full bg-orange-400" />
+                </div>
+                <span className="text-orange-500 -ml-0.5">p</span>
+              </Link>
 
       {/* User Card Layout */}
       <div className="flex flex-col items-start mb-6">
