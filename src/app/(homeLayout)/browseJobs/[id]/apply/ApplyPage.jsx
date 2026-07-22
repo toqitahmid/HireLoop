@@ -30,6 +30,7 @@ export default function ApplyPage({ job, user }) {
       resumeLink: formData.resumeLink,
       githubLink: formData.githubLink,
       message: formData.message,
+      status: 'Applied'
     };
 
     try {

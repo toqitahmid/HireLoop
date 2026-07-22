@@ -24,12 +24,12 @@ const navItems = [
   },
   {
     label: "Jobs",
-    href: "/seekerDashboard/seekerjobs",
+    href: "/seekerDashboard/seekerJobs",
     icon: Building2,
   },
   {
     label: "Saved Jobs",
-    href: "/recruiterDashboard/savedJobs",
+    href: "/seekerDashboard/savedJobs",
     icon: Briefcase,
   },
   {

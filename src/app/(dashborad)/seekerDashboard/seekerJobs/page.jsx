@@ -1,11 +1,16 @@
-import React from 'react';
+import { getApplicationsByApplicant } from '@/app/lib/api/applications';
+import { getUserSession } from '@/app/lib/core/session';
+import React from 'react'
+import ApplicationTable from "./ApplicationTable";
 
-const page = () => {
+const page = async() => {
+    const user = await getUserSession();
+    const jobs = await getApplicationsByApplicant(user?.id);
     return (
       <div>
-        <h1 className="h-screen flex justify-center items-center text-4xl">
-          Seeker Jobs
-        </h1>
+        <div>
+           <ApplicationTable jobs = {jobs}></ApplicationTable>
+        </div>
       </div>
     );
 };
