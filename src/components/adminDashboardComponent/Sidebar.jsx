@@ -28,8 +28,8 @@ const navItems = [
     icon: Building2,
   },
   {
-    label: "Applications",
-    href: "/adminDashboard/adminApplications", // Updated so it's unique from Manage Jobs!
+    label: "Companies",
+    href: "/adminDashboard/adminCompanies", // Updated so it's unique from Manage Jobs!
     icon: FileText,
   },
   {

@@ -11,3 +11,15 @@ export const createCompany = async (newCompanyData) => {
   });
   return res.json();
 };
+
+
+export const updateCompanyStatus = async(id, status) => {
+  const res = await fetch(`${baseUrl}/api/companies/${id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({status}),
+  });
+  return res.json();
+}

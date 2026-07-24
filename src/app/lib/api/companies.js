@@ -15,3 +15,9 @@ export const getRecruiterCompany = async (recruiterId) => {
 
   return text ? JSON.parse(text) : null;
 };
+
+export const getAllCompanies = async() => {
+  const res = await fetch(`${baseUrl}/api/companies`);
+  const data = await res.json();
+  return data;
+}
