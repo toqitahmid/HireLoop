@@ -10,7 +10,7 @@ const page = async () => {
   return (
     <div>
       <div>
-        {recruiterCompany && (
+        {recruiterCompany.status !== 'Pending' ? (
           <div className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto w-full space-y-6 text-white bg-[#121212]">
             {/* Profile Overview Header Card */}
             <Card
@@ -113,10 +113,17 @@ const page = async () => {
               </div>
             </Card>
           </div>
+        ) : (
+          <div className="h-screen flex justify-center items-center">
+            <h1 className="text-2xl font-semibold">Please wait for admin approval</h1>
+          </div>
         )}
       </div>
       {!recruiterCompany && (
-        <CompanyRegistration recruiter={recruiter}></CompanyRegistration>
+        <CompanyRegistration
+          recruiter={recruiter}
+          recruiterCompany={recruiterCompany}
+        ></CompanyRegistration>
       )}
     </div>
   );
