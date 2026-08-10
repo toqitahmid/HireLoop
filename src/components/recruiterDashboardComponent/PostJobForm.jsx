@@ -7,7 +7,7 @@ import { toast, Zoom } from "react-toastify";
 import { redirect } from "next/navigation";
 
 export default function PostJobForm({ recruiterCompany }) {
-  console.log('from Form = ', recruiterCompany._id)
+  console.log('from Form = ', recruiterCompany?._id)
   const [formData, setFormData] = useState({
     status: true,
     isRemote: false,

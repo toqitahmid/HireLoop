@@ -20,20 +20,13 @@ const page = async() => {
           </div>
           <Jobs></Jobs>
         </div>
-        {recruiterCompany.status !== 'Pending' ? (
+        {recruiterCompany && recruiterCompany?.status !== "Pending" ? (
           <PostJobForm recruiterCompany={recruiterCompany}></PostJobForm>
         ) : (
           <div className="h-[30vh] flex justify-center items-center">
             <h1 className="text-2xl font-semibold">
-              Please wait for admin approval
+              At first register your company & please wait for admin approval
             </h1>
-          </div>
-        )}
-      </div>
-      <div>
-        {!recruiterCompany && (
-          <div className="flex justify-center items-center h-[30vh] font-semibold text-3xl">
-            <h1>At first register your company</h1>
           </div>
         )}
       </div>

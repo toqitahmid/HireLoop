@@ -10,7 +10,7 @@ const page = async () => {
   return (
     <div>
       <div>
-        {recruiterCompany.status !== 'Pending' ? (
+        {recruiterCompany?.status !== 'Pending' ? (
           <div className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto w-full space-y-6 text-white bg-[#121212]">
             {/* Profile Overview Header Card */}
             <Card
