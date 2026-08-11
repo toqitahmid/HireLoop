@@ -70,7 +70,7 @@ export default function ApplyPage({ job, user }) {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+    <div className=" flex items-center justify-center p-4">
       <div className="w-full max-w-lg bg-zinc-950 rounded-2xl shadow-2xl border border-zinc-900 p-6 sm:p-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white tracking-tight">

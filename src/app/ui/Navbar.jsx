@@ -16,7 +16,7 @@ export default function AppNavbar() {
   const baseMenuItems = [
     { label: "Browse Jobs", href: "/browseJobs" }, // Change from '#' to actual paths if needed
     { label: "Company", href: "/company" },
-    { label: "Pricing", href: "/pricing" },
+    { label: "Pricing", href: "/plans" },
   ];
 
   // If user is authenticated, append the Dashboard link to the navbar group cleanly

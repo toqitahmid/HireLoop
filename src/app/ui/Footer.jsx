@@ -65,7 +65,7 @@ const Footer = () => {
               radius="full"
               className="border-zinc-800 hover:border-zinc-700 text-zinc-300 font-medium px-6 h-11 bg-zinc-900/40 backdrop-blur-sm transition-colors"
             >
-              View pricing
+              View Plans
             </Button>
           </div>
         </div>
