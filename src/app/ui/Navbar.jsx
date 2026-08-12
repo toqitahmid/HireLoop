@@ -25,7 +25,9 @@ const dashboardHref =
     ? "/recruiterDashboard/recruiterHomeDashboard"
     : user?.role === "seeker"
       ? "/seekerDashboard/seekerHomeDashboard"
-      : null;
+      : user?.role === "admin"
+        ? "/adminDashboard/adminHomeDashboard"
+        : null;
 
 const menuItems = user
   ? [

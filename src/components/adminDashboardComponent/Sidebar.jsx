@@ -32,11 +32,11 @@ const navItems = [
     href: "/adminDashboard/adminCompanies", // Updated so it's unique from Manage Jobs!
     icon: FileText,
   },
-  {
-    label: "Settings",
-    href: "/adminDashboard/adminSettings",
-    icon: Settings,
-  },
+  // {
+  //   label: "Settings",
+  //   href: "/adminDashboard/adminSettings",
+  //   icon: Settings,
+  // },
 ];
 
 export default function Sidebar() {

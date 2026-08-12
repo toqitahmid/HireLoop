@@ -7,9 +7,9 @@ import {
   ArrowRight,
   Calendar,
 } from "lucide-react";
-// Strict Hero UI v3 Imports: Card, Avatar, and Link component systems
-import { Card, Avatar, Link } from "@heroui/react";
-import NextLink from "next/link"; // Alias NextLink to prevent namespace collisions
+// Strict Hero UI v3 Imports: Card and Avatar component systems
+import { Card, Avatar } from "@heroui/react";
+import NextLink from "next/link";
 
 export default function JobCard({ job }) {
   // Destructure exact properties directly from your real database payload schema
@@ -96,15 +96,9 @@ export default function JobCard({ job }) {
           <span>Ends: {deadline}</span>
         </div>
 
-        {/* 
-          Using Hero UI's own Link component with NextLink mapped to the "as" parameter 
-          allows us to safely use properties like isDisabled and custom styles without console warnings.
-        */}
-        <Link
-          as={NextLink}
+        <NextLink
           href={`/browseJobs/${_id}`}
           className="bg-transparent hover:bg-zinc-900/50 text-zinc-200 font-semibold text-sm transition-all duration-200 group-hover:text-white px-3 min-w-0"
-          isDisabled={!status}
         >
           <span className="flex items-center gap-1">
             See Details
@@ -113,7 +107,7 @@ export default function JobCard({ job }) {
               className="text-zinc-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-white"
             />
           </span>
-        </Link>
+        </NextLink>
       </Card.Footer>
     </Card>
   );
