@@ -5,6 +5,7 @@ import React from "react";
 import ApplyPage from "./ApplyPage";
 import Link from "next/link";
 import { getApplicationsByApplicant } from "@/app/lib/api/applications";
+import { getPlanById } from "@/app/lib/api/plans";
 
 const page = async ({ params }) => {
   const { id } = await params;
@@ -28,10 +29,11 @@ const page = async ({ params }) => {
 
   let noOfApplication = [];
   let job = null;
-  let plan = 3;
+  let plan = null;
 
   try {
-    noOfApplication = await getApplicationsByApplicant(user.id);
+    noOfApplication = await getApplicationsByApplicant(user?.id);
+    plan = await getPlanById(user?.plan)
     job = await getJobById(id);
   } catch (error) {
     console.error("Apply page data fetch error:", error);
@@ -50,7 +52,8 @@ const page = async ({ params }) => {
     <div className="px-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full sm:w-10/12 md:w-8/12 lg:w-5/12 xl:w-3/12 mx-auto text-center sm:text-left">
         <h2 className="text-sm sm:text-base font-medium">
-          You can apply for {noOfApplication?.length} jobs of {plan}
+          You can apply for {noOfApplication?.length} jobs of{" "}
+          {plan?.maxApplication}
         </h2>
         <Link
           href="/plans"
@@ -60,7 +63,7 @@ const page = async ({ params }) => {
         </Link>
       </div>
 
-      {noOfApplication?.length < plan ? (
+      {noOfApplication?.length < plan?.maxApplication ? (
         <ApplyPage job={job} user={user} />
       ) : (
         <div className="min-h-[50vh] flex justify-center items-center px-4 text-center">

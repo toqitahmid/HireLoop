@@ -1,35 +1,27 @@
 "use server";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-const getUrl = (path) => {
-  return baseUrl ? `${baseUrl}${path}` : path;
-};
+export const getPlanById = async (planId) => {
+  try {
+    const res = await fetch(`${baseUrl}/api/plans?plan_id=${planId}`, {
+      cache: "no-store",
+    });
 
-const parseJsonResponse = async (res) => {
-  const text = await res.text();
-  const contentType = res.headers.get("content-type") || "";
+    const text = await res.text();
 
-  if (!res.ok) {
-    const errorMsg = text || `Request failed with status ${res.status}`;
-    throw new Error(errorMsg);
-  }
+    if (!res.ok) {
+      console.error("getPlanById failed:", res.status, text);
+      return null;
+    }
 
-  if (!text) {
+    if (!text) {
+      console.error("getPlanById: empty response body");
+      return null;
+    }
+
+    return JSON.parse(text);
+  } catch (error) {
+    console.log("getPlanById error:", error);
     return null;
   }
-
-  if (contentType.includes("application/json")) {
-    try {
-      return JSON.parse(text);
-    } catch (error) {
-      throw new Error(`Invalid JSON response from ${res.url}`);
-    }
-  }
-
-  throw new Error(`Unexpected response type ${contentType} from ${res.url}`);
-};
-
-export const getPlanById = async (plan_id) => {
-  const res = await fetch(getUrl(`/api/plans?plan_id=${plan_id}`));
-  return parseJsonResponse(res);
 };
