@@ -27,26 +27,26 @@ const navItems = [
     href: "/seekerDashboard/seekerJobs",
     icon: Building2,
   },
-  {
-    label: "Saved Jobs",
-    href: "/seekerDashboard/savedJobs",
-    icon: Briefcase,
-  },
+  // {
+  //   label: "Saved Jobs",
+  //   href: "/seekerDashboard/savedJobs",
+  //   icon: Briefcase,
+  // },
   {
     label: "Applications",
     href: "/seekerDashboard/seekerApplications", // Updated so it's unique from Manage Jobs!
     icon: FileText,
   },
-  {
-    label: "Billings",
-    href: "/seekerDashboard/seekerBillings",
-    icon: Settings,
-  },
-  {
-    label: "Settings",
-    href: "/seekerDashboard/seekerSettings",
-    icon: Settings,
-  },
+  // {
+  //   label: "Billings",
+  //   href: "/seekerDashboard/seekerBillings",
+  //   icon: Settings,
+  // },
+  // {
+  //   label: "Settings",
+  //   href: "/seekerDashboard/seekerSettings",
+  //   icon: Settings,
+  // },
 ];
 
 export default function Sidebar() {

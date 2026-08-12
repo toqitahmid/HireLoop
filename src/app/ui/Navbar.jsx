@@ -14,8 +14,8 @@ export default function AppNavbar() {
 
   // Static links open to everyone
   const baseMenuItems = [
-    { label: "Browse Jobs", href: "/browseJobs" }, // Change from '#' to actual paths if needed
-    { label: "Company", href: "/company" },
+    { label: "Jobs", href: "/browseJobs" }, // Change from '#' to actual paths if needed
+    { label: "Companies", href: "/companies" },
     { label: "Pricing", href: "/plans" },
   ];
 
