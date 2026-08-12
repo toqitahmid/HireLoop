@@ -13,21 +13,18 @@ import {
 } from "@heroui/react";
 
 import { ToastContainer, Zoom, toast } from "react-toastify";
-// 1. CHANGE: Import useRouter instead of redirect
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "../../lib/auth-client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-const LogInPage = () => {
-  
+const LogInForm = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [password, setPassword] = useState("");
-  // 2. CHANGE: Initialize the router
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirect') || '/';
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +34,7 @@ const LogInPage = () => {
     const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
-      rememberMe: true
+      rememberMe: true,
     });
 
     if (data) {
@@ -53,12 +50,10 @@ const LogInPage = () => {
         transition: Zoom,
       });
 
-      // 3. CHANGE: Use router.push() for client-side redirection
       router.push(redirectTo);
     } else if (error) {
       console.error("Better-Auth Error Details:", error);
 
-      // 4. CHANGE: Toast the exact error message so you can see why it's a 422
       toast.error(
         error.message || "Failed to login. Please check your inputs.",
         {
@@ -103,9 +98,7 @@ const LogInPage = () => {
             <InputGroup.Input
               className="w-full"
               type={isVisible ? "text" : "password"}
-              // 1. Bind to the password state
               value={password}
-              // 2. Update the state when the user types
               onChange={(e) => setPassword(e.target.value)}
             />
             <InputGroup.Suffix className="pr-0">
@@ -143,6 +136,20 @@ const LogInPage = () => {
         </p>
       </Form>
     </div>
+  );
+};
+
+const LogInPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center h-[60vh]">
+          Loading...
+        </div>
+      }
+    >
+      <LogInForm />
+    </Suspense>
   );
 };
 

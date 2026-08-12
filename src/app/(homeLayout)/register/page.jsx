@@ -15,27 +15,25 @@ import {
 } from "@heroui/react";
 
 import { ToastContainer, Zoom, toast } from "react-toastify";
-// 1. CHANGE: Import useRouter instead of redirect
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "../../lib/auth-client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-const RegisterPage = () => {
-   const [isVisible, setIsVisible] = useState(false);
-   const [password, setPassword] = useState("");
-   const [role, setRole] = useState('');
-  // 2. CHANGE: Initialize the router
+const RegisterForm = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirect') || '/'
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-    
-    const plan = role === 'seeker'?'seeker_free' : 'recruiter_free'
+
+    const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
     const { data, error } = await authClient.signUp.email({
       name: user.name,
       image: user.image,
@@ -58,12 +56,10 @@ const RegisterPage = () => {
         transition: Zoom,
       });
 
-      // 3. CHANGE: Use router.push() for client-side redirection
       router.push(redirectTo);
     } else if (error) {
       console.error("Better-Auth Error Details:", error);
 
-      // 4. CHANGE: Toast the exact error message so you can see why it's a 422
       toast.error(
         error.message || "Failed to register. Please check your inputs.",
         {
@@ -77,7 +73,6 @@ const RegisterPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-[60vh]">
-      {/* Toast container must be present in the tree somewhere if not already in your root layout */}
       <ToastContainer />
 
       <div className="flex items-center my-10">
@@ -94,7 +89,6 @@ const RegisterPage = () => {
           <FieldError />
         </TextField>
 
-        {/* Note: Make sure to type a valid URL (like https://example.com/avatar.jpg) when testing! */}
         <TextField isRequired name="image" type="url">
           <Label>Image Url</Label>
           <Input placeholder="https://example.com/image.jpg" />
@@ -123,9 +117,7 @@ const RegisterPage = () => {
             <InputGroup.Input
               className="w-full"
               type={isVisible ? "text" : "password"}
-              // 1. Bind to the password state
               value={password}
-              // 2. Update the state when the user types
               onChange={(e) => setPassword(e.target.value)}
             />
             <InputGroup.Suffix className="pr-0">
@@ -154,7 +146,7 @@ const RegisterPage = () => {
             value={role}
             onChange={setRole}
           >
-            <Radio  value="seeker">
+            <Radio value="seeker">
               <Radio.Content>
                 <Radio.Control>
                   <Radio.Indicator />
@@ -162,7 +154,7 @@ const RegisterPage = () => {
                 Seeker
               </Radio.Content>
             </Radio>
-            <Radio  value="recruter">
+            <Radio value="recruter">
               <Radio.Content>
                 <Radio.Control>
                   <Radio.Indicator />
@@ -191,6 +183,20 @@ const RegisterPage = () => {
         </p>
       </Form>
     </div>
+  );
+};
+
+const RegisterPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center h-[60vh]">
+          Loading...
+        </div>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 };
 
