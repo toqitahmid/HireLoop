@@ -1,4 +1,7 @@
 "use server";
+
+import { authHeader } from "./token";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createCompany = async (newCompanyData) => {
@@ -6,6 +9,7 @@ export const createCompany = async (newCompanyData) => {
     method: "POST",
     headers: {
       "content-type": "application/json",
+      ... await authHeader()
     },
     body: JSON.stringify(newCompanyData),
   });
@@ -18,6 +22,7 @@ export const updateCompanyStatus = async(id, status) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      ... await authHeader()
     },
     body: JSON.stringify({status}),
   });

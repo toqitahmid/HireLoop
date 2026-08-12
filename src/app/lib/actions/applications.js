@@ -1,5 +1,7 @@
 "use server";
 
+import { authHeader } from "./token";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createApplication = async (applicationData) => {
@@ -8,6 +10,7 @@ export const createApplication = async (applicationData) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ... await authHeader()
     },
     body: JSON.stringify(applicationData),
   });

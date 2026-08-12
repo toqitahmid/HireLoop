@@ -28,8 +28,8 @@ const page = async ({ params }) => {
   }
 
   let noOfApplication = [];
-  let job = null;
-  let plan = null;
+  let job;
+  let plan;
 
   try {
     noOfApplication = await getApplicationsByApplicant(user?.id);

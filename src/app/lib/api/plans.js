@@ -1,10 +1,14 @@
 "use server";
+
+import { authHeader } from "../actions/token";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getPlanById = async (planId) => {
   try {
     const res = await fetch(`${baseUrl}/api/plans?plan_id=${planId}`, {
       cache: "no-store",
+      headers: {... await authHeader()}
     });
 
     const text = await res.text();

@@ -1,5 +1,7 @@
 "use server";
 
+import { authHeader } from "./token";
+
 const baseurl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createJob = async (newJobData) => {
@@ -15,6 +17,7 @@ export const createJob = async (newJobData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // ... await authHeader()
       },
       body: JSON.stringify(newJobData),
     });

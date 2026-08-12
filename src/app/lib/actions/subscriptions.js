@@ -1,10 +1,14 @@
 'use server';
+
+import { authHeader } from "./token";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const createSubscription = async (subInfo) => {
   const res = await fetch(`${baseUrl}/api/subscriptions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ... await authHeader()
     },
     body: JSON.stringify(subInfo),
   });

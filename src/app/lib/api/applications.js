@@ -1,5 +1,7 @@
 "use server";
 
+import { authHeader } from "../actions/token";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 const getUrl = (path) => {
@@ -52,6 +54,7 @@ export const getApplicationsByApplicant = async (applicantId) => {
       ),
       {
         cache: "no-store",
+        headers: {... await authHeader()}
       },
     );
 
